@@ -1,0 +1,51 @@
+<div class="nav center">
+  {{input type="text" enter="getOrganizationRepository" class="search-text" placeholder="Enter Organization Name Here" value=searchText}}
+  <input class="search-btn" value="Search" type="submit" {{action 'getOrganizationRepository' searchText}} />
+</div>
+{{#if loader}}
+  <div class="center-container">
+    <div class="loader center"></div>
+  </div>
+{{else}}
+  {{#if failOrganization}}
+    <div class="center">
+      <h2>No data Available for {{organizationName}}</h2>
+      {{#if filterApplied}}
+        <a {{action 'clearAllFilter' }} href="#">Clear All Filter</a>
+      {{/if}}
+    </div>
+  {{else if login}}
+    <div class="center-container">
+      {{gof-card title=login imageUrl=avatar_url url=html_url}}
+    </div>
+    {{#if repos}}
+      <h2 class="center">{{totalCount}} Repositories</h2>
+      <div class="center-container {{if navigation '' 'hide'}}">
+        {{gof-navigation changePage='changePage' navigation=navigation pageNumber=orgPageNumber}}
+      </div>
+      <div class="center-container {{if navigation '' 'hide'}}">
+        <div>
+          <select {{action 'filterContent' '' 'Type' on='change'}} id="filterByType" class="filter-dropdown">
+            <option value="all">All</option>
+            <option value="private">Private</option>
+            <option value="public">Public</option>
+          </select>
+        </div>
+        <div class="">
+          {{input type="text" enter="filterContent" class="filter-text" placeholder="Enter Language to Filter" value=languageFilter}}
+        </div>
+      </div>
+      <div class="flex-container {{if repos '' 'hide'}}">
+        {{#each repos as |repo|}}
+          {{gof-card repository=repo title=repo.name url=repo.html_url showBranchDetails='showBranchDetails'}}
+        {{/each}}
+        {{gof-modal branches=branches showModal=showModal toggleData='toggleData'}}
+      </div>
+    {{else}}
+      <div class="center-container {{if login '' 'hide'}}">
+        <h2>No Repositories Available</h2>
+      </div>
+    {{/if}}
+
+  {{/if}}
+{{/if}}

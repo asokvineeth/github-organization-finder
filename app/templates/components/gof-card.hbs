@@ -1,0 +1,32 @@
+<div class="card  {{if imageUrl 'image-card' ''}}">
+  {{#if imageUrl}}
+    <div class="card-image">
+      <img src="{{imageUrl}}" />
+    </div>
+  {{/if}}
+  <div class="card-body">
+    <div class="card-title center">
+      <h3>{{title}}</h3>
+      <a href="{{url}}" class="github-btn center" target="_blank">Visit GitHub</a>
+      {{#if repository.branches_url}}
+        <a {{action 'showBranchDetails' repository.branches_url }} class="github-btn center">Show More Details</a>
+      {{/if}}
+    </div>
+    <div class="card-content {{if repository '' 'hide'}}">
+      <ul class="list-details center-container flex-column">
+        <li>
+          <div class="width-50">Full Name</div>
+          <div class="width-50">:<b>{{repository.full_name}}</b></div>
+        </li>
+        <li>
+          <div class="width-50">Language</div>
+          <div class="width-50">:<b>{{#if repository.language}}{{repository.language}}{{else}}-{{/if}}</b></div>
+        </li>
+        <li>
+          <div class="width-50">Type</div>
+          <div class="width-50">:<b>{{#if repository.private}}Private{{else}}Public{{/if}}</b></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

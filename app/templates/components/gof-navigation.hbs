@@ -1,0 +1,15 @@
+<div class="navigation {{navigation}}">
+  {{#if navigation.first}}
+    <b class="navigation-btn" {{action 'changePage' navigation.first}}>&lt;&lt;</b>
+  {{/if}}
+  {{#if navigation.prev}}
+    <b class="navigation-btn" {{action 'changePage' navigation.prev}}>&lt;</b>
+  {{/if}}
+  <b class="pageNumber">{{pageNumber}}</b>
+  {{#if navigation.next}}
+    <b class="navigation-btn" {{action 'changePage' navigation.next}}>&gt;</b>
+  {{/if}}
+  {{#if navigation.last}}
+    <b class="navigation-btn" {{action 'changePage' navigation.last}}>&gt;&gt;</b>
+  {{/if}}
+</div>
