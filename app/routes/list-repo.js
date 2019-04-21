@@ -33,7 +33,7 @@ export default Route.extend({
     } else {
       Ember.set(controller, 'navigation', undefined);
     }
-    self.updateRepositoryData(controller, response.items);
+    self.updateRepositoryData(controller, response);
     if (controller.Type) {
       Ember.run.scheduleOnce('afterRender', function() {
         let selectDropdown = document.querySelector('#filterByType');
@@ -60,7 +60,7 @@ export default Route.extend({
       controller = self.get('controller');
     }
     let repositories = [];
-    response.forEach(function(repo) {
+    response.items.forEach(function(repo) {
       let newRepo = {};
       ['name', 'html_url', 'full_name', 'private', 'description', 'branches_url', 'language'].map(item => newRepo[item] = repo[item]);
       repositories.pushObject(newRepo);
@@ -100,7 +100,7 @@ export default Route.extend({
       this.ajaxCall(url.substring(0, url.indexOf('{')), this.showBranchDetail);
     },
     changePage(url) {
-      let pageNumber = url.split('=')[1];
+      let pageNumber = url.split('=').pop();
       this.ajaxCall(url.trim(), this.changeOrganizationPage);
       this.set('controller.orgPageNumber', pageNumber);
     },
