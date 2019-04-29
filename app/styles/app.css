@@ -249,3 +249,9 @@
     width: 200px !important;
   }
 }
+@media screen and (min-width:1280px){
+  .flex-container>div{
+    margin:5px;
+    width:30%;
+  }
+}
